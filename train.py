@@ -9,10 +9,10 @@ from corpus import build_corpus
 
 
 def train_bach_corpus(save_path, model_path=None, batch_size=128, nb_epoch=1):
-    midi_files = []
-    with open('midi_files') as filelist:
-        for f in filelist:
-            midi_files.append(f.replace('\n', ''))
+    midi_files = ['bach/bwv10{}.mid'.format(x) for x in ['07', '08', '09', '10', '11', '12']]
+    # with open('midi_files') as filelist:
+    #     for f in filelist:
+    #         midi_files.append(f.replace('\n', ''))
 
     melody_corpus, melody_set, notes_indices, indices_notes = build_corpus(midi_files)
 
