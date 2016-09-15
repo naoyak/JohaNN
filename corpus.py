@@ -39,7 +39,10 @@ def build_corpus(midi_files):
     for file in midi_files:
         midi_stream = converter.parse(file)
         midi_stream = midi_stream[0]
+        if '1008' in file or '1011' in file:
+            midi_stream.keySignature = midi_stream.keySignature.relative
         key_sig = midi_stream.keySignature
+        print('Input file: {} ({})'.format(file, str(key_sig)))
         midi_stream.transpose(KEY_SIG_OFFSET - key_sig.tonic.pitchClass, inPlace=True)
         melody_corpus.extend(parse_notes(midi_stream))
     # map indices for constructing matrix representations
