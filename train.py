@@ -3,7 +3,7 @@ from keras.models import Sequential, load_model
 from keras.layers.core import Dense, Activation, Dropout
 from keras.layers.recurrent import LSTM
 from keras.callbacks import History, ModelCheckpoint
-from keras.optimizers import Adagrad
+from keras.optimizers import RMSprop
 
 from corpus import build_corpus
 
@@ -24,7 +24,7 @@ def train_bach_corpus(save_path, model_path=None, batch_size=128, nb_epoch=1):
     corpus_size = len(melody_set)
 
     # cut the corpus into semi-redundant sequences of max_len values
-    step_size = 5
+    step_size = 3
     phrase_len = 50
     phrases = []
     next_notes = []
@@ -49,7 +49,7 @@ def train_bach_corpus(save_path, model_path=None, batch_size=128, nb_epoch=1):
         model.add(Dense(corpus_size))
         model.add(Activation('softsign'))
 
-        model.compile(loss='categorical_crossentropy', optimizer=Adagrad())
+        model.compile(loss='categorical_crossentropy', optimizer=RMSprop())
 
     else:
         model = load_model(model_path)
