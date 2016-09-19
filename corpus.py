@@ -14,11 +14,13 @@ def parse_notes(midi_stream):
         time_sig = m.timeSignature
         for nr in m.flat.notesAndRests:
             offset_loc = nr.offset
-            pitch = nr.pitch.pitchClass + 1  if isinstance(nr, note.Note) else 0
-            beat_strength = round(nr.beatStrength * 4.0, 0)
+            # pitch = nr.pitch.pitchClass + 1  if isinstance(nr, note.Note) else 0
+            pitch = nr.pitch.midi  if isinstance(nr, note.Note) else 0
+            # beat_strength = round(nr.beatStrength * 4.0, 0)
             duration = float(nr.quarterLength)
 
-            note_repr = (pitch, beat_strength, duration)
+            # note_repr = (pitch, beat_strength, duration)
+            note_repr = (pitch, duration)
             # Handle chords
             if nr.offset == prev_offset:
                 if note_repr[0] > 0:
