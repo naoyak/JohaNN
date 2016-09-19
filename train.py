@@ -42,12 +42,12 @@ def train_bach_corpus(save_path, model_path=None, batch_size=128, nb_epoch=1):
         y[i, notes_indices[next_notes[i]]] = 1
     if model_path is None:
         model = Sequential()
-        model.add(LSTM(128, return_sequences=True, input_shape=(phrase_len, corpus_size)))
+        model.add(LSTM(512, return_sequences=True, input_shape=(phrase_len, corpus_size)))
         model.add(Dropout(0.2))
-        model.add(LSTM(128, return_sequences=False))
+        model.add(LSTM(512, return_sequences=False))
         model.add(Dropout(0.2))
         model.add(Dense(corpus_size))
-        model.add(Activation('softsign'))
+        model.add(Activation('softmax'))
 
         model.compile(loss='categorical_crossentropy', optimizer=RMSprop())
 
