@@ -25,7 +25,7 @@ def train_bach_corpus(save_path, model_path=None, batch_size=128, nb_epoch=1):
 
     # cut the corpus into semi-redundant sequences of max_len values
     step_size = 5
-    phrase_len = 30
+    phrase_len = 50
     phrases = []
     next_notes = []
     for i in range(0, len(melody_corpus) - phrase_len, step_size):

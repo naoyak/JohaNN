@@ -1,4 +1,5 @@
 import numpy as np
+from music21 import midi
 
 def __sample(preds, temperature=1.0):
     # helper function to sample an index from a probability array
@@ -35,3 +36,22 @@ def generate_sequence(model, seq_len, melody_corpus, melody_set, phrase_len, not
 
 #     gen_melody = [indices_notes[i] for i in gen_melody_indices]
     return gen_melody
+
+def play_melody(gen_melody):
+    v = stream.Voice()
+    last_note_duration = 0
+    for n in gen_melody:
+        if n[0] == 0:
+            new_note = note.Rest()
+        else:
+            new_pitch = pitch.Pitch()
+            # new_pitch.midi = 59.0 + n[0] - 24
+            new_pitch.midi = n[0]
+            new_note = note.Note(new_pitch)
+        new_note.offset = v.highestOffset + last_note_duration
+        new_note.duration.quarterLength = n[2]
+        last_note_duration = new_note.duration.quarterLength
+        v.insert(new_note)
+
+    sp = midi.realtime.StreamPlayer(v)
+    sp.play()
