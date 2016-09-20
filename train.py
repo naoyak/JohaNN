@@ -47,7 +47,7 @@ def train_model(midi_files, save_path, model_path=None, step_size=3, phrase_len=
         model = load_model(model_path)
 
     checkpoint = ModelCheckpoint(filepath=save_path,
-        verbose=1, save_best_only=True)
+        verbose=1, save_best_only=False)
     history = History()
     model.fit(X, y, batch_size=batch_size, nb_epoch=nb_epoch, callbacks=[checkpoint, history])
 
