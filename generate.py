@@ -1,5 +1,5 @@
 import numpy as np
-from music21 import midi, stream, pitch
+from music21 import midi, stream, pitch, note
 
 def __sample(preds, temperature=1.0):
     # helper function to sample an index from a probability array
