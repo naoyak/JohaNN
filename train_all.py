@@ -21,8 +21,7 @@ for phrase_len in phrase_lengths:
     save_path = 'model_save/bach_model_{}.h5'.format(param_str)
     model_path = save_path if Path(save_path).is_file() else None
 
-    model, melody_corpus, melody_set, notes_indices, indices_notes =
-        train_model(midi_files, save_path, model_path, step_size, phrase_len, layer_size)
+    model, melody_corpus, melody_set, notes_indices, indices_notes = train_model(midi_files, save_path, model_path, step_size, phrase_len, layer_size)
     corpus = (melody_corpus, melody_set, notes_indices, indices_notes)
 
     with open ('corpus/corpus_{}.pkl'.format(param_str), 'wb') as f:
