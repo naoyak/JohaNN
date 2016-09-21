@@ -49,6 +49,9 @@
         $('#submit').attr("disabled", true);
         $('#midi-download-button').attr("disabled", true);
         e.preventDefault();
+        $('#sheet-music').attr('src', "");
+        $('#midi-play-btn').attr("disabled", true);
+        $('#midi-play-btn').attr("onClick", "MIDIjs.play('/static/tmp/" + $('#song_name').val() + ".mid');")
         data = {
           // 'csrf_token': ,
           // 'csrftoken':
@@ -79,7 +82,7 @@
             $('#submit').attr("disabled", false);
             $('#midi-download').attr('action', data.midi_s3_path);
             $('#midi-download-btn').attr("disabled", false);
-            $('#midi-play-btn').attr("onClick", "MIDIjs.play('/static/tmp/" + $('#song_name').val() + ".mid');")
+            $('#midi-play-btn').attr("onClick", "MIDIjs.play(" + data.midi_s3_path + ");")
             $('#midi-play-btn').attr("disabled", false);
             // display text here
           },
