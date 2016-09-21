@@ -6,6 +6,7 @@ import boto3
 from forms import JohannForm
 from generate import generate_sequence, play_melody
 from utils import unpack_corpus, create_png_from_stream, create_midi_from_stream, upload_to_s3_bucket
+from midi_audio import to_audio
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -46,7 +47,8 @@ def generate():
     create_midi_from_stream(stream, songname)
     midi_upload_path = upload_to_s3_bucket('tmp/{}.mid'.format(songname), '{}.mid'.format(songname), AWS_BUCKET_NAME)
     png_path = create_png_from_stream(stream, songname)
-    png_upload_path = upload_to_s3_bucket(png_path, '{}.png'.format(songname), AWS_BUCKET_NAME)
+    png_upload_path = upload_to_s3_bucket('tmp/{}.png'.format(songname), '{}.png'.format(songname), AWS_BUCKET_NAME)
+    # midi_file = to_audio('soundfont/fluid.sf2', 'tmp/{}.mid'.format(songname), 'tmp/', out_type='mp3')
 
     return jsonify(midi_s3_path=midi_upload_path, img_s3_path=png_upload_path)
 

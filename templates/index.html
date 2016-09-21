@@ -73,7 +73,7 @@
           contentType:'application/json;charset=UTF-8',
           success: function(data) {
             console.log(data);
-            $('#sheet-music').attr('src', data.img_s3_path);
+            $('#sheet-music').attr('src', data.img_s3_path + "?timestamp=" + new Date().getTime());
             $('#submit').attr("disabled", false);
             $('#midi-download').attr('action', data.midi_s3_path);
             $('#midi-download-btn').attr("disabled", false);

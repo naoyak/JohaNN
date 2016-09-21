@@ -1,3 +1,5 @@
+import os
+import shutil
 import pickle
 import boto3
 from music21 import midi, converter
@@ -39,7 +41,9 @@ def create_png_from_stream(stream, filename):
     # defaults.author = savedDefaultAuthor
     if helperSubformats[0] == 'png':
         ipo = ipythonObjects.IPythonPNGObject(fp)
-    return(ipo.fp)
+    target_filename = os.path.join(os.getcwd(), "tmp/{}.png".format(filename))
+    shutil.move(ipo.fp, target_filename)
+    return(target_filename)
 
 
 def upload_to_s3_bucket(local_path, upload_path, bucket):
