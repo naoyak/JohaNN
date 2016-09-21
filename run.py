@@ -1,5 +1,3 @@
-
-
 from flask import Flask, request, render_template, jsonify
 from flask_bootstrap import Bootstrap
 from keras.models import load_model
@@ -19,13 +17,7 @@ phrase_lengths = [10, 20, 35, 50]
 layer_size = 512
 step_size = 3
 
-# model_filenames = '{}_{}_{}'.format(step_size, phrase_len, layer_size)
-
-
-
 AWS_BUCKET_NAME = 'naoya-metis'
-
-
 
 model_data = {
     'corpus': unpack_corpus('corpus/bach_suites_corpus.pkl'),
