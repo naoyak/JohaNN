@@ -1,5 +1,5 @@
 import numpy as np
-from music21 import midi, stream, pitch, note
+from music21 import midi, stream, pitch, note, clef, instrument
 
 def __sample(preds, temperature=1.0):
     # helper function to sample an index from a probability array
@@ -52,6 +52,11 @@ def play_melody(gen_melody):
         new_note.duration.quarterLength = n[2]
         last_note_duration = new_note.duration.quarterLength
         v.insert(new_note)
+    s = stream.Stream()
+    part = stream.Part()
+    part.clef = clef.BassClef()
+    part.append(instrument.Violoncello())
+    part.insert(v)
+    s.insert(part)
 
-    sp = midi.realtime.StreamPlayer(v)
-    sp.play()
+    return s

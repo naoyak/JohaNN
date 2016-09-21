@@ -1,0 +1,94 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "bootstrap/base.html" %}
+{% block title %}JohaNN{% endblock %}
+
+{% block navbar %}
+
+<nav class="navbar navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+        <span class="navbar-brand" href="#">JohaNN</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a href="https://github.com/naoyak">@naoyak</a></li>
+        <li><a href="http://blog.naoya.io">Blog</a></li>
+        <li><a href="http://twitter.com/naoyak">Twitter</a></li>
+      </ul>
+
+  </div>
+  <!-- ... -->
+</nav>
+{% endblock %}
+
+{% block content %}
+  <h1 class="text-center">JohaNN - The Baroque Generator RNN</h1>
+
+  <div class="top-image">
+    <img id="sheet-music" class="img-responsive center-block" src="" style="max-height: 1000px;"alt="" />
+
+  </div>
+  <!-- <div class="container"> -->
+
+
+    <div class="center-block row" style="margin: 35px 5%;">
+      <div class="col-md-4 col-md-offset-2" style="">
+        {{ wtf.quick_form(form) }}
+      </div>
+      <div class="col-md-6">
+
+        <blockquote class="speech-text" style="">
+          <p id="speech-body" style="">
+            Your text will appear here!
+          </p>
+        </blockquote>
+      </div>
+    </div>
+  <!-- </div> -->
+
+
+{% endblock %}
+{% block scripts %}
+  {{super()}}
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#submit').click(function(e) {
+        e.preventDefault();
+        data = {
+          // 'csrf_token': ,
+          // 'csrftoken':
+          'temperature': $('#temperature').val(),
+          'seed_length': $('#seed_length').val(),
+          'seq_len': $('#seq_len').val(),
+          'song_name': $('#song_name').val()
+        };
+
+        var csrftoken = $('meta[name=csrf-token]').attr('content')
+
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                }
+            }
+        });
+
+        $.ajax({
+          url: '/generate/',
+          data: JSON.stringify(data),
+          type: 'POST',
+          contentType:'application/json;charset=UTF-8',
+          success: function(data) {
+            console.log(data);
+            $('#sheet-music').attr('src', data.img_s3_path);
+            // display text here
+          },
+          error: function(error) {
+            console.log(error);
+          }
+
+
+        });
+      })
+    });
+  </script>
+{% endblock %}
