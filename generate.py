@@ -55,7 +55,7 @@ def play_melody(gen_melody):
     s = stream.Stream()
     part = stream.Part()
     part.clef = clef.BassClef()
-    part.append(instrument.Violoncello())
+    part.append(instrument.Harpsichord())
     part.insert(v)
     s.insert(part)
 
