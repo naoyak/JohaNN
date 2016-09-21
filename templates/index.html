@@ -4,7 +4,7 @@
 
 {% block navbar %}
 
-<nav class="navbar navbar-fixed-top">
+<nav class="navbar navbar-dark navbar-fixed-top" style="background-color: #33b490;">
   <div class="container">
     <div class="navbar-header">
         <span class="navbar-brand" href="#">JohaNN</a>
@@ -21,17 +21,21 @@
 {% endblock %}
 
 {% block content %}
-  <h1 class="text-center">JohaNN - The Baroque Generator RNN</h1>
+  <h1 class="text-center" style="margin-top: 100px;">JohaNN-LSTM: Bach Generator</h1>
 
 
     <div class="center-block row" style="margin: 35px 5%;">
-      <div class="col-md-4 col-md-offset-2" style="">
+      <div class="col-md-2 col-md-offset-2" style="">
         {{ wtf.quick_form(form) }}
       </div>
-      <div class="col-md-6" style="padding: 20px;">
-          <form id="midi-download" action="" method="get">
+      <div class="col-md-8" style="padding: 20px;">
+          <form id="midi-download" action="" method="get" style="margin: 10px auto;">
             <button id="midi-download-btn" class="btn btn-default" type="submit" name="button" disabled>Download MIDI file</button>
           </form>
+          <form id="midi-play" action="#" onsubmit="" style="margin: 10px auto;">
+            <button id="midi-play-btn" class="btn btn-default" type="submit" name="button" disabled>Play! 🎶</button>
+          </form>
+           <!-- <a id="midi-play" href="#" onClick="">Play MIDI File</a> -->
           <img id="sheet-music" class="img-responsive center-block" src="" alt="" />
       </div>
     </div>
@@ -41,6 +45,7 @@
 {% endblock %}
 {% block scripts %}
   {{super()}}
+  <script type='text/javascript' src='http://www.midijs.net/lib/midi.js'></script>
   <script type="text/javascript">
     $(document).ready(function(){
       $('#submit').click(function(e) {
@@ -77,6 +82,8 @@
             $('#submit').attr("disabled", false);
             $('#midi-download').attr('action', data.midi_s3_path);
             $('#midi-download-btn').attr("disabled", false);
+            $('#midi-play').attr("onsubmit", "MIDIjs.play('/static/tmp/" + $('#song_name').val() + ".mid');")
+            $('#midi-play-btn').attr("disabled", false);
             // display text here
           },
           error: function(error) {

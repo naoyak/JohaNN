@@ -16,7 +16,7 @@ def unpack_corpus(filename):
 
 def create_midi_from_stream(stream, filename):
     mf = midi.translate.streamToMidiFile(stream)
-    mf.open('tmp/{}.mid'.format(filename), 'wb')
+    mf.open('static/tmp/{}.mid'.format(filename), 'wb')
     mf.write()
     mf.close()
 
@@ -41,7 +41,7 @@ def create_png_from_stream(stream, filename):
     # defaults.author = savedDefaultAuthor
     if helperSubformats[0] == 'png':
         ipo = ipythonObjects.IPythonPNGObject(fp)
-    target_filename = os.path.join(os.getcwd(), "tmp/{}.png".format(filename))
+    target_filename = os.path.join(os.getcwd(), "static/tmp/{}.png".format(filename))
     shutil.move(ipo.fp, target_filename)
     return(target_filename)
 

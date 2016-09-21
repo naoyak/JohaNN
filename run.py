@@ -45,9 +45,9 @@ def generate():
     melody = generate_sequence(model, seq_len, melody_corpus, melody_set, phrase_len, notes_indices, indices_notes, temperature)
     stream = play_melody(melody)
     create_midi_from_stream(stream, songname)
-    midi_upload_path = upload_to_s3_bucket('tmp/{}.mid'.format(songname), '{}.mid'.format(songname), AWS_BUCKET_NAME)
+    midi_upload_path = upload_to_s3_bucket('static/tmp/{}.mid'.format(songname), '{}.mid'.format(songname), AWS_BUCKET_NAME)
     png_path = create_png_from_stream(stream, songname)
-    png_upload_path = upload_to_s3_bucket('tmp/{}.png'.format(songname), '{}.png'.format(songname), AWS_BUCKET_NAME)
+    png_upload_path = upload_to_s3_bucket('static/tmp/{}.png'.format(songname), '{}.png'.format(songname), AWS_BUCKET_NAME)
     # midi_file = to_audio('soundfont/fluid.sf2', 'tmp/{}.mid'.format(songname), 'tmp/', out_type='mp3')
 
     return jsonify(midi_s3_path=midi_upload_path, img_s3_path=png_upload_path)

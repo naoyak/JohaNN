@@ -63,3 +63,4 @@ Thumbs.db
 melody/*.mid
 tmp/
 soundfont/
+static/tmp/*
