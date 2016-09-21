@@ -61,7 +61,6 @@ Thumbs.db
 
 # generated MIDI files
 melody/*.mid
-tmp/
 soundfont/
 static/tmp/*.mid
 static/tmp/*.png
