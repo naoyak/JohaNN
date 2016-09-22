@@ -81,7 +81,7 @@
             $('#submit').attr("disabled", false);
             $('#midi-download').attr('action', data.midi_s3_path);
             $('#midi-download-btn').attr("disabled", false);
-            $('#midi-play-btn').attr("onClick", "MIDIjs.play(" + data.midi_s3_path + ");");
+            $('#midi-play-btn').attr("onClick", "MIDIjs.play('" + data.midi_s3_path + "');");
             $('#midi-play-btn').attr("disabled", false);
             // display text here
           },
